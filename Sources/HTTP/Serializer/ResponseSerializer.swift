@@ -15,7 +15,7 @@ public final class ResponseSerializer<Stream: WriteableStream>: Serializer {
     public func serialize(_ response: Response) throws {
         let message = try serialize(response as Message)
         
-        let reasonPhrase = response.status.reasonPhrase.makeBytes()
+        let reasonPhrase = response.status.reasonPhrase.bytes
         let length = 15 // 13 bytes for the following characters: HTTP/1.1_xxx_\r\n
             + reasonPhrase.count
             + message.count

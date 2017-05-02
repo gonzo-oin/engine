@@ -67,7 +67,7 @@ public final class RequestParser<Stream: ReadableStream>: CHTTPParser {
         // set the host on the uri if it exists
         // in the headers
         if let hostname = results.headers[.host] {
-            uri.hostname = hostname
+            uri.hostname = hostname.string
         }
         
         // if there is no scheme, use http by default

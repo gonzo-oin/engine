@@ -60,7 +60,7 @@ extension WebSocket {
 
         let requestKey = WebSocket.makeRequestKey()
 
-        var headers = headers ?? [HeaderKey:String]()
+        var headers = headers ?? [HeaderKey: VaporString]()
         headers.secWebSocketKey = requestKey
         headers.connection = "Upgrade"
         headers.upgrade = "websocket"

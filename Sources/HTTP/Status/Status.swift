@@ -238,7 +238,7 @@ extension Status {
 }
 
 extension Status {
-    public var reasonPhrase: String {
+    public var reasonPhrase: UTF8String {
         switch self {
         case .`continue`:                    return "Continue"
         case .switchingProtocols:            return "Switching Protocols"
@@ -302,7 +302,7 @@ extension Status {
         case .notExtended:                   return "Not Extended"
         case .networkAuthenticationRequired: return "Network Authentication Required"
 
-        case .other(_, let reasonPhrase):    return reasonPhrase
+        case .other(_, let reasonPhrase):    return reasonPhrase.utf8String
         }
     }
 }

@@ -5,7 +5,7 @@ public final class Request: Message {
     public var method: Method
     public var uri: URI
     public var version: Version
-    public var headers: [HeaderKey: String]
+    public var headers: [HeaderKey: VaporString]
     public var body: Body
     public var storage: [String: Any]
     
@@ -13,7 +13,7 @@ public final class Request: Message {
         method: Method,
         uri: URI,
         version: Version = Version(major: 1, minor: 1),
-        headers: [HeaderKey: String] = [:],
+        headers: [HeaderKey: VaporString] = [:],
         body: Body = .data([])
     ) {
         self.method = method
@@ -28,12 +28,12 @@ public final class Request: Message {
 extension Request {
     public convenience init(
         method: Method,
-        uri: String,
+        uri: VaporString,
         version: Version = Version(major: 1, minor: 1),
-        headers: [HeaderKey: String] = [:],
+        headers: [HeaderKey: VaporString] = [:],
         body: Body = .data([])
     ) {
-        let uri = URIParser.shared.parse(bytes: uri.makeBytes())
+        let uri = URIParser.shared.parse(bytes: uri.bytes)
         self.init(
             method: method,
             uri: uri,

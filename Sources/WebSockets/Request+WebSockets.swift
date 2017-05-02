@@ -12,11 +12,12 @@ extension Request {
         guard let requestKey = headers.secWebSocketKey else {
             throw WebSocket.FormatError.missingSecKeyHeader
         }
+        
         guard headers.upgrade?.lowercased() == "websocket" else {
             throw WebSocket.FormatError.missingUpgradeHeader
         }
 
-        guard headers.connection?.lowercased().range(of: "upgrade") != nil else {
+        guard headers.connection?.lowercased().contains("upgrade") == true else {
             throw WebSocket.FormatError.missingConnectionHeader
         }
 
@@ -25,7 +26,7 @@ extension Request {
             throw WebSocket.FormatError.invalidOrUnsupportedVersion
         }
 
-        var responseHeaders: [HeaderKey: String] = [:]
+        var responseHeaders: [HeaderKey: VaporString] = [:]
         responseHeaders.connection = "Upgrade"
         responseHeaders.upgrade = "websocket"
         responseHeaders.secWebSocketAccept = try WebSocket.exchange(requestKey: requestKey)

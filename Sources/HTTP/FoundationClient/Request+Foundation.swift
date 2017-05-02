@@ -1,5 +1,6 @@
 import URI
 import Foundation
+import Core
 
 extension Request {
     func makeFoundationRequest() throws -> URLRequest {
@@ -8,7 +9,7 @@ extension Request {
         request.httpMethod = method.description.uppercased()
         request.httpBody = body.bytes.flatMap { Data(bytes: $0) }
         headers.forEach { key, val in
-            request.addValue(val, forHTTPHeaderField: key.description)
+            request.addValue(val.string, forHTTPHeaderField: key.description)
         }
         return request
     }

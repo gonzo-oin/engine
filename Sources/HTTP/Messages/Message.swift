@@ -3,18 +3,19 @@ import URI
 
 public protocol Message: class {
     var version: Version { get set }
-    var headers: [HeaderKey: String] { get set }
+    var headers: [HeaderKey: VaporString] { get set }
     var body: Body { get set }
     var storage: [String: Any] { get set }
 }
 
 extension Message {
     public var contentType: String? {
-        return headers["Content-Type"]
+        return headers["Content-Type"]?.string
     }
+    
     public var keepAlive: Bool {
         // HTTP 1.1 defaults to true unless explicitly passed `Connection: close`
-        guard let value = headers["Connection"] else { return true }
+        guard let value = headers["Connection"]?.utf8String else { return true }
         return !value.contains("close")
     }
 }
@@ -50,30 +51,30 @@ extension Message {
     /// socket address. If proxies are used, please ensure
     /// you can trust them.
     public var peerHostname: String? {
-        if let forwarded = headers["Forwarded"] {
+        if let forwarded = headers["Forwarded"]?.string {
             return Forwarded(forwarded)?.for
         } else {
             /// Sent by certain proxies, only use if you can
             /// trust the proxy (easily spoofed).
-            return headers["X-Forwarded-For"]
+            return headers["X-Forwarded-For"]?.string
                 ?? stream?.hostname
         }
     }
     
     /// The scheme of this message's peer.
     public var peerScheme: String? {
-        if let forwarded = headers["Forwarded"] {
+        if let forwarded = headers["Forwarded"]?.string {
             return Forwarded(forwarded)?.proto
         } else {
-            return headers["X-Forwarded-Proto"]
-                ?? headers["X-Scheme"]
+            return headers["X-Forwarded-Proto"]?.string
+                ?? headers["X-Scheme"]?.string
                 ?? stream?.scheme
         }
     }
     
     /// The port of this message's peer.
     public var peerPort: Port? {
-        if let forwardedPort = headers["X-Forwarded-Port"] {
+        if let forwardedPort = headers["X-Forwarded-Port"]?.string {
             return Port(forwardedPort)
         }
         return stream?.port

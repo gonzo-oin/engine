@@ -53,7 +53,7 @@ extension CHTTPParser {
             case .value(let key, let value):
                 // there was previously a value being parsed.
                 // it is now finished.
-                results.headers[key] = value.makeString()
+                results.headers[key] = UTF8String(bytes: value)
                 // start a new key
                 results.headerState = .key(bytes)
             case .key(let key):
@@ -89,7 +89,7 @@ extension CHTTPParser {
             case .key(let key):
                 // there was previously a key being parsed.
                 // it is now finished.
-                let headerKey = HeaderKey(key.makeString())
+                let headerKey = HeaderKey(key)
                 // add the new bytes alongside the created key
                 results.headerState = .value(key: headerKey, bytes)
             }
@@ -109,7 +109,7 @@ extension CHTTPParser {
             case .value(let key, let value):
                 // there was previously a value being parsed.
                 // it should be added to the headers dict.
-                results.headers[key] = value.makeString()
+                results.headers[key] = UTF8String(bytes: value)
             default:
                 // no other cases need to be handled.
                 break

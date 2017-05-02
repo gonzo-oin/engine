@@ -1,7 +1,7 @@
 import HTTP
 
 // https://tools.ietf.org/html/rfc6455#section-1.2
-extension KeyAccessible where Key == HeaderKey, Value == String {
+extension KeyAccessible where Key == HeaderKey, Value == VaporString {
     public var isWebSocketRequest: Bool {
         guard upgrade == "websocket" else { return false }
         guard connection == "Upgrade" else { return false }
@@ -12,7 +12,7 @@ extension KeyAccessible where Key == HeaderKey, Value == String {
         return true
     }
 
-    public var upgrade: String? {
+    public var upgrade: VaporString? {
         get {
             return self["Upgrade"]
         }
@@ -21,7 +21,7 @@ extension KeyAccessible where Key == HeaderKey, Value == String {
         }
     }
 
-    public var connection: String? {
+    public var connection: VaporString? {
         get {
             return self["Connection"]
         }
@@ -30,7 +30,7 @@ extension KeyAccessible where Key == HeaderKey, Value == String {
         }
     }
 
-    public var secWebSocketKey: String? {
+    public var secWebSocketKey: VaporString? {
         get {
             return self["Sec-WebSocket-Key"]
         }
@@ -39,7 +39,7 @@ extension KeyAccessible where Key == HeaderKey, Value == String {
         }
     }
 
-    public var secWebSocketVersion: String? {
+    public var secWebSocketVersion: VaporString? {
         get {
             return self["Sec-WebSocket-Version"]
         }
@@ -48,7 +48,7 @@ extension KeyAccessible where Key == HeaderKey, Value == String {
         }
     }
 
-    public var secWebSocketAccept: String? {
+    public var secWebSocketAccept: VaporString? {
         get {
             return self["Sec-WebSocket-Accept"]
         }
@@ -59,7 +59,7 @@ extension KeyAccessible where Key == HeaderKey, Value == String {
 
     public var secWebProtocol: [String]? {
         get {
-            return self["Sec-WebSocket-Protocol"]?.components(separatedBy: ", ")
+            return self["Sec-WebSocket-Protocol"]?.string.components(separatedBy: ", ")
         }
         set {
             let joined = newValue?.joined(separator: ", ")

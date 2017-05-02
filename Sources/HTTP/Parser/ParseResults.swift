@@ -24,7 +24,7 @@ internal final class ParseResults {
     
     // message components
     var version: Version?
-    var headers: [HeaderKey: String]
+    var headers: [HeaderKey: VaporString]
     var body: Bytes
 
     // url

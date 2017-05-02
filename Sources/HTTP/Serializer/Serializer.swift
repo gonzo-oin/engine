@@ -27,8 +27,8 @@ extension Serializer {
         
         var headerBytes: [(key: Bytes, value: Bytes)] = []
         for (key, value) in message.headers {
-            let k = key.key.makeBytes()
-            let v = value.makeBytes()
+            let k = key.key.bytes
+            let v = value.bytes
             length += k.count
                 + v.count
                 + 4 // 4 bytes for the ': ' and '\r\n'

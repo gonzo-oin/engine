@@ -7,7 +7,7 @@ import URI
 public final class Response: Message {
     public var version: Version
     public var status: Status
-    public var headers: [HeaderKey: String]
+    public var headers: [HeaderKey: VaporString]
     public var body: Body
     public var storage: [String: Any]
     public var onComplete: ((DuplexStream) throws -> Void)?
@@ -15,12 +15,19 @@ public final class Response: Message {
     public init(
         version: Version = Version(major: 1, minor: 1),
         status: Status,
-        headers: [HeaderKey: String] = [:],
+        headers: [HeaderKey: VaporString] = [:],
         body: Body = .data([])
     ) {
         self.status = status
         self.version = version
-        self.headers = headers
+        
+        var newHeaders = [HeaderKey : UTF8String]()
+        
+        for (key, value) in headers {
+            newHeaders[key] = value.utf8String
+        }
+        
+        self.headers = newHeaders
         self.body = body
         self.storage = [:]
         self.onComplete = nil
@@ -34,8 +41,8 @@ extension Response {
     /// redirect from browsers.
     /// Defaulting to non-permanent to prevent unexpected caching.
     public convenience init(
-        headers: [HeaderKey: String] = [:],
-        redirect location: String,
+        headers: [HeaderKey: VaporString] = [:],
+        redirect location: VaporString,
         permanently: Bool = false
     ) {
         var headers = headers
@@ -51,7 +58,7 @@ extension Response {
     public convenience init<S: Sequence>(
         version: Version = Version(major: 1, minor: 1),
         status: Status,
-        headers: [HeaderKey: String] = [:],
+        headers: [HeaderKey: VaporString] = [:],
         body: S
     )
         where S.Iterator.Element == Byte

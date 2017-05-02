@@ -28,8 +28,8 @@ extension WebSocket {
          "s3pPLMBiTxaQ9kYGzzhZRbK+xOo=".  This value would then be echoed in
          the |Sec-WebSocket-Accept| header field.
     */
-    public static func exchange(requestKey: String) throws -> String {
-        let combination = requestKey.makeBytes().trimmed([.space]).array + hashKey
+    public static func exchange(requestKey: VaporString) throws -> String {
+        let combination = requestKey.bytes.trimmed([.space]).array + hashKey
         return try Hash.make(.sha1, combination).base64Encoded.makeString()
     }
 }
