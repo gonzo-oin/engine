@@ -2,7 +2,7 @@ import XCTest
 import URI
 import Foundation
 
-@testable import HTTP
+@testable import HTTPVapor
 
 class FoundationConversionTests: XCTestCase {
     static let allTests = [

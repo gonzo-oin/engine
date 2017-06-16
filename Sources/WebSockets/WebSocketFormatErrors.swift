@@ -1,4 +1,4 @@
-import HTTP
+import HTTPVapor
 
 extension WebSocket {
     public enum FormatError: Swift.Error {

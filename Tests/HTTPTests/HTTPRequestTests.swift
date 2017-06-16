@@ -1,5 +1,5 @@
 import XCTest
-@testable import HTTP
+@testable import HTTPVapor
 import URI
 
 class HTTPRequestTests: XCTestCase {

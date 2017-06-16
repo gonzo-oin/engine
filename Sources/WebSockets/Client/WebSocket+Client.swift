@@ -3,7 +3,7 @@ import Transport
 import Sockets
 
 import URI
-import HTTP
+import HTTPVapor
 
 extension WebSocket {
     public static func background<C: ClientStream>(

@@ -1,4 +1,4 @@
-import HTTP
+import HTTPVapor
 
 extension Request {
     public var cookies: Cookies {

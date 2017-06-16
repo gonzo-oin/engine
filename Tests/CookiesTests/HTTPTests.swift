@@ -1,6 +1,6 @@
 import XCTest
 @testable import Cookies
-import HTTP
+import HTTPVapor
 import URI
 
 class HTTPTests: XCTestCase {

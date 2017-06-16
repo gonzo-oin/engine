@@ -2,7 +2,7 @@ import Foundation
 import XCTest
 
 import Transport
-@testable import HTTP
+@testable import HTTPVapor
 
 class HTTPParsingTests: XCTestCase {
     static let allTests = [

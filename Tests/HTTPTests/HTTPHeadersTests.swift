@@ -1,5 +1,5 @@
 import XCTest
-@testable import HTTP
+@testable import HTTPVapor
 
 class HTTPHeadersTests: XCTestCase {
     static var allTests = [

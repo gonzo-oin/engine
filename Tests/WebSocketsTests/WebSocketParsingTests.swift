@@ -2,7 +2,7 @@ import XCTest
 import Foundation
 
 import libc
-import HTTP
+import HTTPVapor
 import Core
 import Transport
 @testable import WebSockets

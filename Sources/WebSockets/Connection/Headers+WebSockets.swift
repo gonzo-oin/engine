@@ -1,4 +1,4 @@
-import HTTP
+import HTTPVapor
 
 // https://tools.ietf.org/html/rfc6455#section-1.2
 extension KeyAccessible where Key == HeaderKey, Value == String {

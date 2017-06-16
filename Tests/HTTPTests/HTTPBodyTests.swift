@@ -1,5 +1,5 @@
 import XCTest
-@testable import HTTP
+@testable import HTTPVapor
 import Transport
 import libc
 import Sockets
